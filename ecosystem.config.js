@@ -24,8 +24,8 @@ module.exports = {
       ref: 'origin/master',
       repo: 'git@github.com:ilia-kravtsov/nodejs-pm2-deploy-2.git',
       path: '/home/user/mesto',
-      key: '~/.ssh/vm_access/private_key',
-      'pre-deploy-local': `scp backend/.env user@158.160.195.220:/home/user/mesto/shared/.env`,
+      key: '$HOME/.ssh/vm_access/private_key',
+      'pre-deploy-local': 'scp -i $HOME/.ssh/vm_access/private_key backend/.env user@158.160.195.220:/home/user/mesto/shared/.env',
       'post-deploy': `
         cd /home/user/mesto/current/backend &&
         npm install &&
