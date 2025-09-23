@@ -1,4 +1,5 @@
 import 'dotenv/config';
+dotenv.config({ path: '../../shared/.env' });
 
 import express from 'express';
 import mongoose from 'mongoose';

@@ -1,13 +1,26 @@
 require('dotenv').config({ path: '.env.deploy' });
 const path = require('path');
 
-const envPathForScp = path.join('backend', '.env');
+const {
+  DEPLOY_USER,
+  DEPLOY_HOST,
+  DEPLOY_PATH,
+  DEPLOY_REF,
+  DEPLOY_REPO,
+  DEPLOY_SSH_KEY,
+} = process.env;
+
+const localEnvPath = path.posix.join('backend', '.env');
+const remoteSharedEnvPath = path.posix.join(DEPLOY_PATH, 'shared', '.env');
 
 module.exports = {
   apps: [
     {
       name: 'mesto-backend',
       script: './backend/dist/app.js',
+      env_production: {
+        NODE_ENV: 'production',
+      },
     },
     {
       name: 'mesto-frontend',
@@ -18,14 +31,14 @@ module.exports = {
 
   deploy: {
     production: {
-      user: process.env.DEPLOY_USER,
-      host: process.env.DEPLOY_HOST,
-      ref: process.env.DEPLOY_REF,
-      repo: process.env.DEPLOY_REPO,
-      path: process.env.DEPLOY_PATH,
-      key: process.env.DEPLOY_SSH_KEY,
-      'pre-deploy-local': `scp -i ${process.env.DEPLOY_SSH_KEY} ${envPathForScp} ${process.env.DEPLOY_USER}@${process.env.DEPLOY_HOST}:${process.env.DEPLOY_PATH}/shared/.env`,
-      'post-deploy': `cd backend && npm install && cd ../frontend && NODE_OPTIONS=--openssl-legacy-provider npm install && NODE_OPTIONS=--openssl-legacy-provider npm run build && pm2 reload ${process.env.DEPLOY_PATH}/current/ecosystem.config.js --env production`,
+      user: DEPLOY_USER,
+      host: DEPLOY_HOST,
+      ref: DEPLOY_REF,
+      repo: DEPLOY_REPO,
+      path: DEPLOY_PATH,
+      key: DEPLOY_SSH_KEY,
+      'pre-deploy-local': `scp -i ${DEPLOY_SSH_KEY} ${localEnvPath} ${DEPLOY_USER}@${DEPLOY_HOST}:${remoteSharedEnvPath}`,
+      'post-deploy': `cd ${DEPLOY_PATH}/current/backend && npm install && cd ../frontend && NODE_OPTIONS=--openssl-legacy-provider npm install && NODE_OPTIONS=--openssl-legacy-provider npm run build && pm2 reload ${DEPLOY_PATH}/current/ecosystem.config.js --env production`,
     },
   },
 };
