@@ -34,7 +34,7 @@ module.exports = {
       path: DEPLOY_PATH,
       key: DEPLOY_SSH_KEY,
       'pre-deploy-local': `scp -i ${DEPLOY_SSH_KEY} ${envPathForScp} ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/.env`,
-      'post-deploy': `cd backend && npm install && cd ../frontend && NODE_OPTIONS=--openssl-legacy-provider npm install && NODE_OPTIONS=--openssl-legacy-provider npm run build && pm2 reload ecosystem.config.js --env production`,
+      'post-deploy': `cd backend && npm install && cd ../frontend && NODE_OPTIONS=--openssl-legacy-provider npm install && NODE_OPTIONS=--openssl-legacy-provider npm run build && pm2 reload ${DEPLOY_PATH}/current/ecosystem.config.js --env production`,
     },
   },
 };
