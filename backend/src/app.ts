@@ -1,5 +1,8 @@
 import 'dotenv/config';
-dotenv.config({ path: '../../shared/.env' });
+import dotenv from 'dotenv';
+import path from 'path';
+
+dotenv.config({ path: path.resolve(__dirname, '../../shared/.env') });
 
 import express from 'express';
 import mongoose from 'mongoose';
