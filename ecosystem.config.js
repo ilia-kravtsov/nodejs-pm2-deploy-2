@@ -14,6 +14,7 @@ module.exports = {
     {
       name: 'backend',
       script: './dist/app.js',
+      cwd: './source/backend',
       env_production: {
         NODE_ENV: 'production',
       },
@@ -21,6 +22,7 @@ module.exports = {
     {
       name: 'frontend',
       script: 'npx serve -s build -l 3000',
+      cwd: './source/frontend',
       env_production: {
         NODE_ENV: 'production',
       },
@@ -34,9 +36,13 @@ module.exports = {
       ref: DEPLOY_REF,
       repo: DEPLOY_REPO,
       path: DEPLOY_PATH,
-      ssh_options: 'StrictHostKeyChecking=no -i ~/.ssh/vm_access/private_key',
-      'pre-deploy-local': `scp -i ~/.ssh/vm_access/private_key backend/.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/.env`,
-      'post-deploy': 'cd source/backend && npm install && npm run build && pm2 reload source/ecosystem.config.js --env production'
+      ssh_options: `StrictHostKeyChecking=no -i ${DEPLOY_SSH_KEY || '~/.ssh/vm_access/private_key'}`,
+      'pre-deploy-local': `scp -i ${DEPLOY_SSH_KEY || '~/.ssh/vm_access/private_key'} backend/.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/.env`,
+      'post-deploy': `
+        cd source/backend && npm install && npm run build &&
+        cd ../frontend && npm install && npm run build &&
+        pm2 reload ../ecosystem.config.js --env production
+      `.replace(/\n/g, ' '),
     },
   },
 };
