@@ -1,16 +1,25 @@
+require('dotenv').config({ path: '.env.deploy' });
+
+const {
+  DEPLOY_USER,
+  DEPLOY_HOST,
+  DEPLOY_PATH,
+  DEPLOY_REPO,
+  DEPLOY_REF = 'origin/master',
+} = process.env;
+
 module.exports = {
   apps: [
     {
-      name: 'mesto-backend',
-      script: './backend/dist/app.js',
+      name: 'backend',
+      script: './dist/app.js',
       env_production: {
         NODE_ENV: 'production',
       },
     },
     {
-      name: 'mesto-frontend',
-      script: 'npx serve -s build',
-      cwd: './frontend',
+      name: 'frontend',
+      script: 'npx serve -s build -l 3000',
       env_production: {
         NODE_ENV: 'production',
       },
@@ -19,21 +28,13 @@ module.exports = {
 
   deploy: {
     production: {
-      user: 'user',
-      host: '158.160.195.220',
-      ref: 'origin/master',
-      repo: 'git@github.com:ilia-kravtsov/nodejs-pm2-deploy-2.git',
-      path: '/home/user/mesto',
-      key: '$HOME/.ssh/vm_access/private_key',
-      'pre-deploy-local': 'scp -i $HOME/.ssh/vm_access/private_key backend/.env user@158.160.195.220:/home/user/mesto/shared/.env',
-      'post-deploy': `
-        cd /home/user/mesto/current/backend &&
-        npm install &&
-        cd ../frontend &&
-        NODE_OPTIONS=--openssl-legacy-provider npm install &&
-        NODE_OPTIONS=--openssl-legacy-provider npm run build &&
-        pm2 reload /home/user/mesto/current/ecosystem.config.js --env production
-      `,
+      user: DEPLOY_USER,
+      host: DEPLOY_HOST,
+      ref: DEPLOY_REF,
+      repo: DEPLOY_REPO,
+      path: DEPLOY_PATH,
+      'pre-deploy-local': `scp ./*.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/.env`,
+      'post-deploy': 'cd backend && npm i && npm run build && pm2 reload ecosystem.config.js --env production',
     },
   },
 };
