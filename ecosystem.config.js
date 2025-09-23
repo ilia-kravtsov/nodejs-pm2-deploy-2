@@ -17,7 +17,7 @@ module.exports = {
       ref: 'origin/master',
       repo: 'git@github.com:ilia-kravtsov/nodejs-pm2-deploy-2.git',
       path: '/home/user/app',
-      'pre-deploy': `scp ./backend/.env user@158.160.195.220:/home/user/app/shared/backend/.env`,
+      'pre-deploy': `scp backend/.env user@158.160.195.220:/home/user/app/shared/backend/.env`,
       'post-deploy': `
         ln -sf /home/user/app/shared/backend/.env /home/user/app/current/backend/.env &&
         cd /home/user/app/current/backend && npm install && npm run build &&
