@@ -40,7 +40,7 @@ module.exports = {
       'pre-deploy-local': `scp -i ${DEPLOY_SSH_KEY || '~/.ssh/vm_access/private_key'} backend/.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/.env`,
       'post-deploy': `
         cd source/backend && npm install && npm run build &&
-        cd ../frontend && npm install && npm run build &&
+        cd ../frontend && export NODE_OPTIONS=--openssl-legacy-provider && npm install && npm run build &&
         pm2 reload ../ecosystem.config.js --env production
       `.replace(/\n/g, ' '),
     },
