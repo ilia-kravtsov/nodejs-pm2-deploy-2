@@ -10,6 +10,8 @@ const {
   DEPLOY_SSH_KEY,
 } = process.env;
 
+const envPathForScp = path.posix.join(...__dirname.split(path.sep), 'backend/.env');
+
 module.exports = {
   apps: [
     {
@@ -31,7 +33,7 @@ module.exports = {
       repo: DEPLOY_REPO,
       path: DEPLOY_PATH,
       key: DEPLOY_SSH_KEY,
-      'pre-deploy-local': `scp ${path.join(__dirname, 'backend/.env')} ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/.env`,
+      'pre-deploy-local': `scp -i ${DEPLOY_SSH_KEY} ${envPathForScp} ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/.env`,
       'post-deploy': `
         cd backend && npm install &&
         cd ../frontend && npm install && npm run build &&
