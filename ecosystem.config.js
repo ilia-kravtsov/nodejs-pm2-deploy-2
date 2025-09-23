@@ -36,7 +36,7 @@ module.exports = {
       path: DEPLOY_PATH,
       ssh_options: 'StrictHostKeyChecking=no -i ~/.ssh/vm_access/private_key',
       'pre-deploy-local': `scp -i ~/.ssh/vm_access/private_key backend/.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/.env`,
-      'post-deploy': 'cd source/backend && npm ci && npm run build && pm2 reload source/ecosystem.config.js --env production'
+      'post-deploy': 'cd source/backend && npm install && npm run build && pm2 reload source/ecosystem.config.js --env production'
     },
   },
 };
