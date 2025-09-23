@@ -14,11 +14,17 @@ module.exports = {
     {
       name: 'mesto-backend',
       script: './backend/dist/app.js',
+      env_production: {
+        NODE_ENV: 'production',
+      },
     },
     {
       name: 'mesto-frontend',
       script: 'npx serve -s build',
       cwd: './frontend',
+      env_production: {
+        NODE_ENV: 'production',
+      },
     },
   ],
 
@@ -30,7 +36,7 @@ module.exports = {
       repo: DEPLOY_REPO,
       path: DEPLOY_PATH,
       key: DEPLOY_SSH_KEY,
-      'pre-deploy': `scp -i ${DEPLOY_SSH_KEY} "./backend/.env" ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/.env`,
+      'pre-deploy': `scp -i ${DEPLOY_SSH_KEY} ./backend/.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/shared/.env`,
       'post-deploy': `
         cd backend && npm install &&
         cd ../frontend && npm install && npm run build &&
