@@ -10,7 +10,7 @@ const {
   DEPLOY_SSH_KEY,
 } = process.env;
 
-const localEnvPath = path.posix.join('backend', '.env');
+const localEnvPath = path.join(__dirname, 'backend', '.env');
 const remoteSharedEnvPath = path.posix.join(DEPLOY_PATH, 'shared', '.env');
 
 module.exports = {
