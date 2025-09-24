@@ -41,7 +41,7 @@ module.exports = {
       'post-deploy': `
         cd source/backend && npm install && npm run build &&
         cd ../frontend && export NODE_OPTIONS=--openssl-legacy-provider && npm install && npm run build &&
-        cd source && pm2 reload ecosystem.config.js --env production
+        cd ../ecosystem.config.js && pm2 reload ecosystem.config.js --env production
       `.replace(/\n/g, ' '),
     },
   },
