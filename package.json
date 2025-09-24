@@ -3,6 +3,7 @@
     "dotenv": "^17.2.2"
   },
   "devDependencies": {
+    "@types/helmet": "^0.0.48",
     "helmet": "^8.1.0"
   }
 }
