@@ -19,8 +19,8 @@ module.exports = {
       cwd: './backend',
       env_production: {
         NODE_ENV: 'production',
-        PORT: process.env.PORT || 3000,
-        DB_ADDRESS: process.env.DB_ADDRESS || 'mongodb://localhost:27017/mestodb',
+        PORT,
+        DB_ADDRESS,
       },
     },
     {
