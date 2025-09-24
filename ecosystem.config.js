@@ -20,13 +20,13 @@ module.exports = {
       },
     },
     {
-      name: 'frontend',
-      script: 'npm run build',
+      name: 'frontend-build',
+      script: 'echo "frontend build step"',
       cwd: './frontend',
       env_production: {
         NODE_ENV: 'production',
       },
-    },
+    }
   ],
 
   deploy: {
