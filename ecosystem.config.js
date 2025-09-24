@@ -19,9 +19,9 @@ module.exports = {
         NODE_ENV: 'production',
       },
     },
-    {
-      name: 'frontend',
-      script: 'npx serve -s build -l 3000',
+ {
+      name: 'frontend-build',
+      script: 'echo "frontend build step"',
       cwd: './frontend',
       env_production: {
         NODE_ENV: 'production',
