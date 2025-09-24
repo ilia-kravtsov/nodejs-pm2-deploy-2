@@ -14,7 +14,7 @@ module.exports = {
     {
       name: 'backend',
       script: './dist/app.js',
-      cwd: './source/backend',
+      cwd: './backend',
       env_production: {
         NODE_ENV: 'production',
       },
@@ -22,7 +22,7 @@ module.exports = {
     {
       name: 'frontend',
       script: 'npx serve -s build -l 3000',
-      cwd: './source/frontend',
+      cwd: './frontend',
       env_production: {
         NODE_ENV: 'production',
       },
