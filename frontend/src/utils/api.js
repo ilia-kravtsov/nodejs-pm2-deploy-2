@@ -139,7 +139,8 @@ class Api {
   }
   }
 
-  const api = new Api(process.env.REACT_APP_API_URL);
+  const BASE_URL = process.env.REACT_APP_API_URL || 'https://api.mesto.kravtsov.nomorepartiessbs.ru';
+  const api = new Api(BASE_URL);
   
   export default api;
   
