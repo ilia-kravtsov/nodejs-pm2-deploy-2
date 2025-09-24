@@ -140,6 +140,7 @@ class Api {
   }
 
   const BASE_URL = process.env.REACT_APP_API_URL || 'https://api.mesto.kravtsov.nomorepartiessbs.ru';
+  console.log('BASE_URL:', BASE_URL);
   const api = new Api(BASE_URL);
   
   export default api;
