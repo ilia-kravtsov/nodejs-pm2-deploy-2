@@ -20,7 +20,7 @@ module.exports = {
       },
     },
     {
-      name: 'frontend-build',
+      name: 'frontend',
       script: 'echo "frontend build step"',
       cwd: './frontend',
       env_production: {
