@@ -6,7 +6,9 @@ const {
   DEPLOY_PATH,
   DEPLOY_REPO,
   DEPLOY_REF = 'origin/master',
-  DEPLOY_SSH_KEY
+  DEPLOY_SSH_KEY,
+  PORT = 3000,
+  DB_ADDRESS = 'mongodb://localhost:27017/mestodb',
 } = process.env;
 
 module.exports = {
@@ -17,6 +19,8 @@ module.exports = {
       cwd: './backend',
       env_production: {
         NODE_ENV: 'production',
+        PORT,
+        DB_ADDRESS,
       },
     },
     {
