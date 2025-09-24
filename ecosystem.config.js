@@ -21,7 +21,7 @@ module.exports = {
     },
     {
       name: 'frontend',
-      script: 'npx serve -s build -l 3000',
+      script: 'npm run build',
       cwd: './frontend',
       env_production: {
         NODE_ENV: 'production',
