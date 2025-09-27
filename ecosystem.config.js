@@ -24,12 +24,13 @@ module.exports = {
       },
     },
     {
-      name: 'frontend',
-      script: 'echo "frontend build step"',
-      cwd: './frontend',
-      env_production: {
-        NODE_ENV: 'production',
-      },
+      name: "frontend",
+      script: "serve",
+      args: "-s build -l 3000",
+      cwd: "./frontend",
+      env: {
+        NODE_ENV: "production"
+      }
     }
   ],
 
