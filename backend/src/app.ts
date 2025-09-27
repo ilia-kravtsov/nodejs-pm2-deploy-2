@@ -27,6 +27,7 @@ app.use(cors({
 }));
 app.use(helmet({
     contentSecurityPolicy: {
+      useDefaults: false,
       directives: {
         defaultSrc: ["'self'"],
         imgSrc: ["'self'", "data:", "https://*"],
