@@ -30,7 +30,7 @@ app.use(helmet({
       useDefaults: false,
       directives: {
         defaultSrc: ["'self'"],
-        imgSrc: ["'self'", "data:", "https://*"],
+        imgSrc: ["'self'", "data:", "https:"],
       },
     },
   }));
